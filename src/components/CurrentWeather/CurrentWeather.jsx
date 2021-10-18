@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import locationIcon from './assets/location-pin.png';
-import styles from './CurrentDay.module.css';
-
-const CurrentDay = ({ weekday, date, location, temperature, weatherIcon, weatherDescription }) => (
+import styles from './CurrentWeather.module.css';
+// Lay date, week day tu he thong
+const CurrentWeather = ({ weekday, date, location, temperature, weatherIcon, weatherDescription }) => (
     <div className="d-flex">
         <div className={styles.img}></div>
         <div className={styles.gradient}></div>
@@ -13,7 +12,7 @@ const CurrentDay = ({ weekday, date, location, temperature, weatherIcon, weather
                 <h2 className="font-weight-bold mb-1">{weekday}</h2>
                 <p className="mb-0">{date} </p>
                 <p className="d-flex align-items-baseline font-weight-lighter mb-1">
-                    <img src={locationIcon} alt="location pin icon" className="mr-1" width="10px" height="15px"/>
+                    <img src='./assets/location-pin.png' alt="location pin icon" className="mr-1" width="10px" height="15px"/>
                     <span>{location}</span>
                 </p>
             </div>
@@ -28,7 +27,7 @@ const CurrentDay = ({ weekday, date, location, temperature, weatherIcon, weather
     </div>
 );
 
-CurrentDay.propTypes = {
+CurrentWeather.propTypes = {
     weekday: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
@@ -37,4 +36,4 @@ CurrentDay.propTypes = {
     weatherDescription: PropTypes.string.isRequired
 };
 
-export default CurrentDay;
+export default CurrentWeather;
