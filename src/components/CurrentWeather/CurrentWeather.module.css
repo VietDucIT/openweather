@@ -4,7 +4,7 @@
 
 .cardInner {
     z-index: 1;
-    height: 300px;
+    height: 150px;
 }
 
 .gradient {
@@ -27,6 +27,7 @@
     left: 0;
     background-image: url('./assets/mountain.jpg');
     background-size: cover;
+    background-position: center;
     border-radius: var(--main-border-radius);
 }
 

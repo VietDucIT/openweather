@@ -1,20 +1,13 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import styles from './Form.module.css';
 
-const Form = (props) => {
+const Form = () => {
     const [city, setCity] = useState('');
 
-    const onSubmit = e => {
-        e.preventDefault();
-        // console.log(city);
-        if(!city || city === '') return;
-        props.submitSearch(city);
-    }
-
     return (
-        <form onSubmit={onSubmit}>
+        <form className="d-flex flex-column text-center">
             <input
                 aria-label="location"
                 type="text"
@@ -25,15 +18,11 @@ const Form = (props) => {
                 onChange={e => setCity(e.target.value)}
             />
 
-            <button type="submit" className={styles.button} onClick={onSubmit}>
-                SEARCH
+            <button className={styles.button}>
+                <Link to={`detail?city=${city}`}> SEARCH </Link>
             </button>
         </form>
     );
 };
-
-Form.propTypes = {
-    submitSearch: PropTypes.func.isRequired
-}
 
 export default Form;

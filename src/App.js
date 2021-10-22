@@ -1,11 +1,30 @@
-import Page from './components/Page';
+import React, { Fragment } from 'react';
+import {BrowserRouter, Switch, Route } from "react-router-dom";
 
-function App() {
+import Header from './components/Header';
+import SearchBox from './components/SearchBox';
+// import Detail from './components/Detail';
+import WeatherForecast from './components/WeatherForecast/WeatherForecast';
+
+const App = () => {
     return (
-        <div className="App">
-            <Page />
-        </div>
+        <BrowserRouter>
+            <Fragment>
+                <Header />
+                <Switch>
+                    <Route exact path="/">
+                        <SearchBox/>
+                    </Route>
+                    {/* <Route path='/detail'>
+                        <Detail/>
+                    </Route> */}
+                    <Route path="/detail">
+                        <WeatherForecast/>
+                    </Route>
+                </Switch>
+            </Fragment>
+        </BrowserRouter>
     );
-}
+};
 
 export default App;
