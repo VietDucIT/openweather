@@ -195,6 +195,8 @@ const WeatherForecast = () => {
         <button className={`${styles.button} position-absolute mt-3`}>
             <Link to="/">Go back</Link>
         </button>
+
+        {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9307828.911743382!2d102.16506891168221!3d16.6899759840894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2sVietnam!5e0!3m2!1sen!2s!4v1634975628103!5m2!1sen!2s" width="500px" height="500px" style={{border: 0}} className="text-center" allowfullscreen="" loading="lazy" title="weatherMap"></iframe> */}
         </Fragment>
     );
 }

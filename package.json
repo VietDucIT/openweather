@@ -9,6 +9,8 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "bootstrap-icons": "^1.6.1",
+    "jquery": "^3.6.0",
+    "json-loader": "^0.5.7",
     "moment": "^2.29.1",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
@@ -41,5 +43,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

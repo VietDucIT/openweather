@@ -24,9 +24,10 @@
 .carousel-caption {
     position: unset;
     padding-bottom: unset;
+    padding-top: 10px;
 }
 
-.carousel-caption, .carousel-caption:hover {
+.carousel-item a:hover {
     text-decoration: none;
     color: white;
 }

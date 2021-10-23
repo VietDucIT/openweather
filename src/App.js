@@ -3,8 +3,8 @@ import {BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Header from './components/Header';
 import SearchBox from './components/SearchBox';
-// import Detail from './components/Detail';
 import WeatherForecast from './components/WeatherForecast/WeatherForecast';
+import Location from './components/Location/Location';
 
 const App = () => {
     return (
@@ -15,13 +15,11 @@ const App = () => {
                     <Route exact path="/">
                         <SearchBox/>
                     </Route>
-                    {/* <Route path='/detail'>
-                        <Detail/>
-                    </Route> */}
                     <Route path="/detail">
                         <WeatherForecast/>
                     </Route>
                 </Switch>
+                <Location/>
             </Fragment>
         </BrowserRouter>
     );
