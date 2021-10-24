@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from "react";
+// import $ from "jquery"
 
-import city from '../../json/city.js';
+import city from '../../json/city';
 
 import styles from './Location.module.css';
 
 const Location = () => {
-    const [myCity, setMyCity] = useState("Thành phố Cần Thơ");
+    const [myCity, setMyCity] = useState("Hà Nội");
 
-    // $('#location').modal('toggle');
+    // const closeModal = () => {
+    //     $('#location').modal('toggle');
+    // };
 
     return (
         <Fragment>
@@ -35,7 +38,7 @@ const Location = () => {
 
                             <div className="form-group">
                                 <label htmlFor="province" className="col-form-label text-dark">Province:</label>
-                                <select className="form-control" id="province" onChange={e => setMyCity(e.target.value)} value={myCity}>
+                                <select className="form-control" id="province" onChange={e => setMyCity(e.target.value)}>
                                     {/* <option selected>Choose...</option> */}
                                     {city.map(cityItem => (
                                         <option key={cityItem.id}

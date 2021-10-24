@@ -1,0 +1,21 @@
+.toplist .dropdown-menu.show {
+    position: unset !important;
+    transform: unset !important;
+    float: unset;
+    background-color: unset;
+}
+
+.toplist .dropdown-menu.show .dropdown-item {
+    color: #fff;
+    padding: 0.25rem 2.5rem;
+}
+
+.toplist .dropdown-menu.show .dropdown-item:hover {
+    color: #16181b;
+}
+
+.toplist .nav-item.show .nav-link {
+    color: unset;
+    background-color: unset;
+    font-weight: 600;
+}

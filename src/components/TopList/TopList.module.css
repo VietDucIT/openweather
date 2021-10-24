@@ -1,0 +1,34 @@
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: var(--main-border-radius);
+    -webkit-box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-color--card);
+    color: var(--main-text-color);
+    width: 85%;
+    max-width: 675px;
+    min-height: 300px;
+}
+
+.nav-tabs {
+    border-bottom: 0;
+}
+
+.nav-item {
+    border-bottom: 1px solid #fff;
+}
+
+.nav-link {
+    padding: 1rem .5rem .5rem;
+}
+
+.dropdown-toggle::after {
+    content: unset;
+}
+
+.dropdown-divider {
+    margin: .5rem 0 .5rem 2.5rem
+}

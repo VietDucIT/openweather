@@ -396,16 +396,6 @@ const city = [
         }
     },
     {
-        "id": 1566338,
-        "name": "Tỉnh Thái Bình",
-        "state": "",
-        "country": "VN",
-        "coord": {
-            "lon": 106.333328,
-            "lat": 20.5
-        }
-    },
-    {
         "id": 1566165,
         "name": "Tỉnh Thanh Hóa",
         "state": "",

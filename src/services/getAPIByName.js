@@ -3,7 +3,7 @@ import axios from "axios";
 const REQUEST_URL = 'https://api.openweathermap.org/data/2.5';
 const APP_ID = 'bb9bbd0e67532f3f8e965fe6fba10ece';
 
-const getWeather = (city) => {
+const getWeatherByName = (city) => {
     // console.log("From api.js: city = ", city)
     return new Promise (async (resolve, reject) => {
         const {data, status} = await axios(`${REQUEST_URL}/weather`, {params: {q: city, appid: `${APP_ID}`}});
@@ -29,4 +29,4 @@ const getWeather = (city) => {
     });
 }
 
-export default getWeather;
+export default getWeatherByName;
