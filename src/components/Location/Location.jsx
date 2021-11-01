@@ -1,65 +1,97 @@
+import { Fragment, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { Fragment, useState } from "react";
-// import $ from "jquery"
+import { Button, Modal, Form } from 'react-bootstrap';
+
+import MyMap from '../MyMap';
 
 import city from '../../json/city';
 
 import styles from './Location.module.css';
 
 const Location = () => {
-    const [myCity, setMyCity] = useState("Hà Nội");
+    const [myCity, setMyCity] = useState();
 
-    // const closeModal = () => {
-    //     $('#location').modal('toggle');
-    // };
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
+
+    const LOCAL_STORAGE_KEY = "LOCATION";
+
+    // get location
+    useEffect(() => {
+        const storagedLocation = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if(storagedLocation) {
+            setMyCity(storagedLocation);
+        }
+    }, []);
+
+    // set location
+    useEffect(() => {
+        if(myCity) {
+            localStorage.setItem(LOCAL_STORAGE_KEY, myCity);
+        }
+    }, [myCity]);
+
+    // localStorage.removeItem(LOCAL_STORAGE_KEY);
 
     return (
         <Fragment>
-        <button type="button" className={`btn ${styles.button}`} data-toggle="modal" data-target="#location">Choose your location</button>
+        <Button className={styles['location-button']} onClick={handleShow}>
+            <i className="bi bi-geo-alt-fill"/>&nbsp;
+            {myCity ? myCity : "Choose your location"}
+        </Button>
 
-        <div className="modal fade" id="location" tabIndex="-1" role="dialog" aria-labelledby="locationModel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                    {/* Modal Header */}
-                    <div className="modal-header">
-                        <h5 className="modal-title text-dark" id="locationModel">Where are you now?</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+        <Modal show={show} onHide={handleClose} className="text-dark">
+            <Modal.Header closeButton>
+                <Modal.Title className={`${styles['form-title']} fw-bold`}>
+                    Where are you now?
+                </Modal.Title>
+            </Modal.Header>
 
-                    {/* Modal Body */}
-                    <div className="modal-body">
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="country" className="col-form-label text-dark">Country:</label>
-                                <input type="text" className="form-control" id="country" placeholder="Viet Nam"/>
-                            </div>
+            <Modal.Body>
+                <Form>
+                    <Form.Group className="mb-3" controlId="country">
+                        <Form.Label>Country: </Form.Label>
+                        <Form.Select className={styles['form-select']}>
+                            <option value="Vietnam">Việt Nam</option>
+                        </Form.Select>
+                        {/* <Form.Text className={`${styles.note} text-muted`}>
+                            * This app just has data of Viet Nam
+                        </Form.Text> */}
+                    </Form.Group>
 
-                            <div className="form-group">
-                                <label htmlFor="province" className="col-form-label text-dark">Province:</label>
-                                <select className="form-control" id="province" onChange={e => setMyCity(e.target.value)}>
-                                    {/* <option selected>Choose...</option> */}
-                                    {city.map(cityItem => (
-                                        <option key={cityItem.id}
-                                            value={cityItem.param ? cityItem.param : cityItem.name}>{cityItem.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-
-                    {/* Modal Footer */}
-                    <div className="modal-footer">
-                        <button type="button" className={`btn ${styles.button} ${styles['grey-btn']}`}  data-dismiss="modal">Close</button>
-                        <button type="button" className={`btn ${styles.button}`}>
-                            <Link to={`detail?city=${myCity}`}> Go to </Link>
-                        </button>
-                    </div>
+                    <Form.Group className="mb-3" controlId="province">
+                        <Form.Label>Province: </Form.Label>
+                        <Form.Select onChange={e => setMyCity(e.target.value)} className={styles['form-select']}>
+                            <option>Choose a province...</option>
+                            {city.map(cityItem => (
+                                <option key={cityItem.id}
+                                    value={cityItem.param ? cityItem.param : cityItem.name}>{cityItem.name}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                </Form>
+                
+                <div>
+                    <p className="mt-4">
+                        Or Choose a province in the map:
+                    </p>
+                    <MyMap/>
                 </div>
-            </div>
-        </div>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button className={`btn ${styles.button} ${styles['grey-btn']}`} onClick={handleClose}>
+                    Close
+                </Button>
+                <Button className={`btn ${styles.button}`} onClick={handleClose}>
+                    <Link to={`detail?city=${myCity}`} className="text-light text-decoration-none">
+                        Go to
+                    </Link>
+                </Button>
+            </Modal.Footer>
+        </Modal>
         </Fragment>
     )
 }

@@ -18,9 +18,12 @@ const Form = () => {
                 onChange={e => setCity(e.target.value)}
             />
 
-            <button className={styles.button}>
-                <Link to={`detail?city=${city}`}> SEARCH </Link>
-            </button>
+            <Link
+                to={`detail?city=${city}`}
+                className="button text-decoration-none"
+            >
+                SEARCH
+            </Link>
         </form>
     );
 };

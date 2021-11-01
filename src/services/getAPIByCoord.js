@@ -4,6 +4,8 @@ import city from '../json/city';
 
 const REQUEST_URL = 'https://api.openweathermap.org/data/2.5';
 const APP_ID = 'bb9bbd0e67532f3f8e965fe6fba10ece';
+// const APP_ID = '0563aa8e25734594b9d3dcef2fd5472a';   // other API key
+
 
 const getWeatherByCoord = (lon, lat) => {
     return new Promise (async (resolve, reject) => {

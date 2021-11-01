@@ -3,7 +3,7 @@
     margin-bottom: 1rem;
 }
 
-.button {
+/* .button {
     border: none;
     border-radius: var(--main-border-radius);
     padding: 0.65rem;
@@ -22,4 +22,4 @@
     -webkit-transform: scale(0.95);
     -ms-transform: scale(0.95);
     transform: scale(0.95);
-}
+} */

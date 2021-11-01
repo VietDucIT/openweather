@@ -17,7 +17,7 @@
     margin-top: 25px;
 }
 
-.carousel-item img {
+.carousel-item-img {
     border-radius: 10px;
 }
 
@@ -30,4 +30,8 @@
 .carousel-item a:hover {
     text-decoration: none;
     color: white;
+}
+
+.carousel-indicators {
+    display: none;
 }

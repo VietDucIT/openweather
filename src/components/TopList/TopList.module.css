@@ -32,3 +32,22 @@
 .dropdown-divider {
     margin: .5rem 0 .5rem 2.5rem
 }
+
+.button {
+    border: none;
+    border-radius: var(--main-border-radius);
+    padding: 0.65rem;
+    background-image: var(--gradient);
+    color: var(--main-text-color);
+    box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    line-height: initial;
+    width: 100px;
+    height: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button:hover {
+    color: var(--main-text-color);
+}

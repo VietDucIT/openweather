@@ -19,7 +19,7 @@ const Detail = () => {
 
     const getWeatherCallback = useCallback(
         async () => {
-            console.log("await");
+            // console.log("await");
             try {
                 setLoading(true);
                 const weather = await getWeather(city);

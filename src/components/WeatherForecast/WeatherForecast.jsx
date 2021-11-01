@@ -1,7 +1,8 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import queryString from 'query-string';
+import { Container, Row, Col, Button, Nav } from 'react-bootstrap';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import styles from './WeatherForecast.module.css';
 
@@ -9,12 +10,10 @@ import getDayTime from '../../helpers/getDayTime';
 import getWeatherByName from '../../services/getAPIByName';
 
 const WeatherForecast = () => {
-    // const location = "Can Tho";
-
     const location = useLocation();
     const { city } = queryString.parse(location.search);
 
-    const [fullData, setFullData] = useState({})
+    const [fullData, setFullData] = useState(null)
 
     const getAPI = useCallback (
         async () => {
@@ -32,7 +31,7 @@ const WeatherForecast = () => {
         getAPI();
     }, [getAPI]);
 
-    const { getWeekDay, getHourFromTimestamp } = getDayTime();  // getDateString,
+    const { getWeekDay, getHourFromTimestamp } = getDayTime();
     
     const initArrayObject = () => [
         {
@@ -142,61 +141,84 @@ const WeatherForecast = () => {
 
     return (
         <Fragment>
-        <div className={`${styles.box} container`}>
-            <div className="row p-3">
-                <div className="col col-xs-12 col-sm-6 d-flex flex-column">
-                    <span className={`${styles.location}`}>Can Tho</span>
-                    <span className={`${styles.date}`}>21/10/2021</span>
+        {fullData &&
+        <Container className={styles.box}>
+            <Row className="p-3">
+                <Col xs={12} sm={6} className="d-flex flex-column">
+                    <span className={styles.location}>{city}</span>
+                    <span className={styles.date}>21/10/2021</span>
                     <img src='http://openweathermap.org/img/wn/10n@2x.png' alt='weather icon' width="100px"/>
-                    <span className={`${styles.description}`}>Heavy Rain</span>
-                </div>
+                    <span className={styles.description}>
+                        {fullData.current.weather[0].description}
+                    </span>
+                </Col>
 
-                <div className="col col-xs-12 col-sm-6 d-flex flex-column align-items-end pe-2">
+                <Col xs={12} sm={6} className="d-flex flex-column align-items-end pe-2">
                     <div className="position-relative mr-5 lh-lg">
-                        <span className={`${styles.temp}`}>26</span>
+                        <span className={styles.temp}>26</span>
                         <span className={`${styles.celsius} position-absolute top-0`}>°C</span>
                     </div>
-                    <span className={`${styles['min-max-temp']}`}>MaxTemp/MinTemp</span>
-                </div>
-            </div>
+                    <span className={styles['min-max-temp']}>MaxTemp/MinTemp</span>
+                </Col>
+            </Row>
 
-            <div className="row mt-4">
-                <nav className="navbar navbar-expand">
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item mx-3">
-                                <span className={`nav-link ${styles['btn-nav-link']}`} onClick={onClickDetail}>Detail</span>
-                            </li>
-                            <li className="nav-item mx-3">
-                                <span className={`nav-link ${styles['btn-nav-link']}`} onClick={onClickHourly}>Hourly</span>
-                            </li>
-                            <li className="nav-item mx-3">
-                                <span className={`nav-link ${styles['btn-nav-link']}`} onClick={onClickDaily}>Daily</span>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+            <Row className="mt-4">
+                <Nav fill variant="tabs">
+                    <Nav.Item>
+                        <Nav.Link
+                            eventKey="1" 
+                            className={styles['nav-link']}
+                            onClick={onClickDetail}
+                        >
+                            Detail
+                        </Nav.Link>
+                    </Nav.Item>
 
-            <p className={`${styles["white-line"]}`}></p>
+                    <Nav.Item>
+                        <Nav.Link
+                            eventKey="2" 
+                            className={styles['nav-link']}
+                            onClick={onClickHourly}
+                        >
+                            Hourly
+                        </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link
+                            eventKey="3" 
+                            className={styles['nav-link']}
+                            onClick={onClickDaily}
+                        >
+                            Daily
+                        </Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </Row>
+
             {/* <i className="bi bi-thermometer-half text-light" style={{ fontSize: 20 }}></i> (temperature) */}
 
-            <div className="row p-3">
+            <Row className="p-3">
                 {data.map((dataItem, index) => (
-                    <div className={`${styles.detailItem} col col-lg-2 col-md-3 col-sm-4 col-xs-6 mb-4 text-center`} key={index}>
-                        <div>{dataItem.title}</div>
+                    <Col 
+                        xs={6} sm={4} md={3} lg={2}
+                        className={`${styles['detail-item']} mb-5 text-center`}
+                        key={index}
+                    >
+                        <div className={`${styles['detail-item-title']} font-weight-bold`}>
+                            {dataItem.title}
+                        </div>
                         {dataItem.icon}
                         <div>{dataItem.value}</div>
-                    </div>
+                    </Col>
                 ))}
-            </div>
-        </div>
+            </Row>
+        </Container>}
 
-        <button className={`${styles.button} position-absolute mt-3`}>
-            <Link to="/">Go Home</Link>
-        </button>
+        <Button className={`${styles.button} position-absolute mt-3`}>
+            <Link to="/" className="fw-bold text-light text-decoration-none">Go Home</Link>
+        </Button>
 
-        {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9307828.911743382!2d102.16506891168221!3d16.6899759840894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2sVietnam!5e0!3m2!1sen!2s!4v1634975628103!5m2!1sen!2s" width="500px" height="500px" style={{border: 0}} className="text-center" allowfullscreen="" loading="lazy" title="weatherMap"></iframe> */}
         </Fragment>
     );
 }
