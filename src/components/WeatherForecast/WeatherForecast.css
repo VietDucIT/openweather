@@ -1,0 +1,9 @@
+.weather-forecast .nav {
+    padding: unset;
+}
+
+.weather-forecast .nav-link.active {
+    color: var(--orange-color);
+    font-weight: 600;
+    background-color: unset;
+}

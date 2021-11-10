@@ -15,13 +15,12 @@ const SearchBox = () => {
             <div className={styles.box}>
             <Container>
                 <Row className="d-flex align-items-center">
-                    {/* <div className="col col-md-6 col-12"> */}
+                    {/* Form */}
                     <Col xs={12} md={6} className="my-4 mt-md-0">
                         <Form />
                     </Col>
 
-                    {/* Slide show */}
-                    {/* <div className="col col-md-6 col-12"> */}
+                    {/* Carousel */}
                     <Col xs={12} md={6} className="my-md-0 my-3">
                         <Carousel controls={false} indicators={false}>
                             { slider.map((slideItem, index) => (
@@ -42,30 +41,7 @@ const SearchBox = () => {
                                 </Carousel.Item>
                             ))
                             }
-
-                            {/* <Carousel.Item>
-                                <Link to="detail?city=ha%20noi">
-                                    <img className="d-block w-100" src="./assets/images/hue.jpg" alt="Thừa Thiên - Huế"/>
-                                    <Carousel.Caption className={styles['carousel-caption']}>
-                                        Ha Giang
-                                    </Carousel.Caption>
-                                </Link>
-                            </Carousel.Item> */}
                         </Carousel>
-
-
-                        {/* <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
-                            <div className="carousel-inner">
-                                <div className={`carousel-item ${styles['carousel-item']} active`} >
-                                    <Link to="detail?city=ha%20noi">
-                                        <img className="d-block w-100" src="./assets/images/hanoi.jpg" alt="Hà Nội"/>
-                                        <div className={`${styles['carousel-caption']} carousel-caption d-none d-sm-block`}>
-                                            Hà Nội
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div> */}
                     </Col>
                 </Row>
             </Container>

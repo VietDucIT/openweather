@@ -16,7 +16,7 @@ let defaultIcon = L.icon({
 L.Marker.prototype.options.icon = defaultIcon;
 
 
-const MyMap = (props) => {
+const MyMap = ( {setMyCity} ) => {
     return (
         <MapContainer
             center = {[10.41667, 106.166672]}
@@ -35,7 +35,7 @@ const MyMap = (props) => {
                     key = {cityItem.id}
                     eventHandlers = {{
                         click: () => {
-                          console.log(cityItem.name)
+                            setMyCity(cityItem.name);
                         },
                     }}
                 >

@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
+import { Accordion, ListGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 import Loader from '../Loader';
@@ -76,7 +77,7 @@ const TopList = () => {
 
     const {getTimeFromTimestamp} = getDayTime();
 
-    console.log(isLoading, "&&&", hasError);
+    // console.log(isLoading, "&&&", hasError);
 
     return (
         <Fragment>
@@ -86,70 +87,93 @@ const TopList = () => {
                 {hasError && <Error message={"Has Error"}/>}
             </div>
         )}
+
         { topTemperature && <Fragment>
             <div className={`${styles.box} toplist`}>
-                <ul className={`nav nav-tabs ${styles['nav-tabs']} flex-column my-5`}>
-                    <li className={`nav-item ${styles['nav-item']} dropdown`}>
-                        <div className={`nav-link ${styles['nav-link']} dropdown-toggle ${styles['dropdown-toggle']} d-flex justify-content-between`} data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span className="mr-5">Top 5 provinces with the most rainfall</span>
-                            <i className="bi bi-chevron-down"></i>
-                        </div>
+                <Accordion className="my-5">
+                    <Accordion.Item eventKey="0" className="border-0 border-bottom bg-transparent">
+                        <Accordion.Header>
+                            Top 5 provinces with the most rainfall
+                            <i className="ms-4 bi bi-chevron-down"></i>
+                        </Accordion.Header>
 
-                        <div className="dropdown-menu">
-                            { topRain.map((item, index) => (
-                                <Fragment key={index}>
-                                    <Link className="dropdown-item d-flex justify-content-between" to={`/detail?city=${item.main.param ? item.main.param : item.main.name}`}>
-                                        <span>{item.main.name}</span>
-                                        <span>{Math.round(item.rain)}mm</span>
-                                    </Link>
-                                    <div className={`dropdown-divider ${styles['dropdown-divider']}`}></div>
-                                </Fragment>
-                            ))}
-                        </div>
-                    </li>
+                        <Accordion.Body>
+                            <ListGroup variant="flush">
+                                { topRain.map((item, index) => (
+                                    <ListGroup.Item 
+                                        key={index}
+                                        className="bg-transparent p-0"
+                                    >
+                                        <Link
+                                            to={`/detail?city=${item.main.param ? item.main.param : item.main.name}`}
+                                            className="d-flex justify-content-between text-decoration-none text-light p-2"
+                                        >
+                                            <span>{item.main.name}</span>
+                                            <span>{Math.round(item.rain)}mm</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Accordion.Body>
+                    </Accordion.Item>
 
-                    <li className={`nav-item ${styles['nav-item']} dropdown`}>
-                        <div className={`nav-link ${styles['nav-link']} dropdown-toggle ${styles['dropdown-toggle']} d-flex justify-content-between`} data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span className="mr-5">Top 5 provinces with the earliest sunrise</span>
-                            <i className="bi bi-chevron-down"></i>
-                        </div>
+                    <Accordion.Item eventKey="1" className="border-0 border-bottom bg-transparent">
+                        <Accordion.Header>
+                            Top 5 provinces with the earliest sunrise
+                            <i className="ms-4 bi bi-chevron-down"></i>
+                        </Accordion.Header>
 
-                        <div className="dropdown-menu">
-                            { topSunrise.map((item, index) => (
-                                <Fragment key={index}>
-                                    <Link className="dropdown-item d-flex justify-content-between" to={`/detail?city=${item.main.param ? item.main.param : item.main.name}`}>
-                                        <span>{item.main.name}</span>
-                                        <span>{getTimeFromTimestamp(item.sunrise)}</span>
-                                    </Link>
-                                    <div className={`dropdown-divider ${styles['dropdown-divider']}`}></div>
-                                </Fragment>
-                            ))}
-                        </div>
-                    </li>
+                        <Accordion.Body>
+                            <ListGroup variant="flush">
+                                { topSunrise.map((item, index) => (
+                                    <ListGroup.Item 
+                                        key={index}
+                                        className="bg-transparent p-0"
+                                    >
+                                        <Link
+                                            to={`/detail?city=${item.main.param ? item.main.param : item.main.name}`}
+                                            className="d-flex justify-content-between text-decoration-none text-light p-2"
+                                        >
+                                            <span>{item.main.name}</span>
+                                            <span>{getTimeFromTimestamp(item.sunrise)}</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Accordion.Body>
+                    </Accordion.Item>
 
-                    <li className={`nav-item ${styles['nav-item']} dropdown`}>
-                        <div className={`nav-link ${styles['nav-link']} dropdown-toggle ${styles['dropdown-toggle']} d-flex justify-content-between`} data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span className="mr-5">Top 5 provinces with the lowest temperature</span>
-                            <i className="bi bi-chevron-down"></i>
-                        </div>
+                    <Accordion.Item eventKey="2" className="border-0 border-bottom bg-transparent">
+                        <Accordion.Header>
+                            Top 5 provinces with the lowest temperature
+                            <i className="ms-4 bi bi-chevron-down"></i>
+                        </Accordion.Header>
 
-                        <div className="dropdown-menu">
-                            { topTemperature.map((item, index) => (
-                                <Fragment key={index}>
-                                    <Link className="dropdown-item d-flex justify-content-between" to={`/detail?city=${item.main.param ? item.main.param : item.main.name}`}>
-                                        <span>{item.main.name}</span>
-                                        <span>{Math.round(item.temp.day - 273.15)}°C</span>
-                                    </Link>
-                                    <div className={`dropdown-divider ${styles['dropdown-divider']}`}></div>
-                                </Fragment>
-                            ))}
-                        </div>
-                    </li>
-                </ul>
+                        <Accordion.Body>
+                            <ListGroup variant="flush">
+                                { topTemperature.map((item, index) => (
+                                    <ListGroup.Item 
+                                        key={index}
+                                        className="bg-transparent p-0"
+                                    >
+                                        <Link
+                                            to={`/detail?city=${item.main.param ? item.main.param : item.main.name}`}
+                                            className="d-flex justify-content-between text-decoration-none text-light p-2"
+                                        >
+                                            <span>{item.main.name}</span>
+                                            <span>{Math.round(item.temp.day - 273.15)}°C</span>
+                                        </Link>
+                                    </ListGroup.Item>
+                                ))}
+                            </ListGroup>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+                
             </div>
 
             <button className={`${styles.button} position-absolute mt-3`}>
-                <Link className='font-weight-bold text-light' to="/">Go Home</Link>
+                <Link className='fw-bold text-light text-decoration-none' to="/">Go Home</Link>
             </button>
         </Fragment>}
         </Fragment>

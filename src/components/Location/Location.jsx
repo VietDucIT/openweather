@@ -1,11 +1,12 @@
 import { Fragment, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Button, Modal, Form } from 'react-bootstrap';
 
 import MyMap from '../MyMap';
 
 import city from '../../json/city';
 
+import "./Location.css";
 import styles from './Location.module.css';
 
 const Location = () => {
@@ -36,12 +37,24 @@ const Location = () => {
 
     return (
         <Fragment>
-        <Button className={styles['location-button']} onClick={handleShow}>
-            <i className="bi bi-geo-alt-fill"/>&nbsp;
-            {myCity ? myCity : "Choose your location"}
-        </Button>
+        <OverlayTrigger
+            placement="left"
+            overlay={
+                <Tooltip id="location-btn-tooltip">
+                    Change your location
+                </Tooltip>
+            }
+        >
+            <Button className={styles['location-button']} onClick={handleShow}>
+                <i className="bi bi-geo-alt-fill"/>&nbsp;
+                {myCity ? myCity : "Choose your location"}
+            </Button>
+        </OverlayTrigger>
 
-        <Modal show={show} onHide={handleClose} className="text-dark">
+        <Modal
+            show={show} onHide={handleClose}
+            className="modal-location text-dark"
+        >
             <Modal.Header closeButton>
                 <Modal.Title className={`${styles['form-title']} fw-bold`}>
                     Where are you now?
@@ -55,18 +68,20 @@ const Location = () => {
                         <Form.Select className={styles['form-select']}>
                             <option value="Vietnam">Việt Nam</option>
                         </Form.Select>
-                        {/* <Form.Text className={`${styles.note} text-muted`}>
-                            * This app just has data of Viet Nam
-                        </Form.Text> */}
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="province">
                         <Form.Label>Province: </Form.Label>
-                        <Form.Select onChange={e => setMyCity(e.target.value)} className={styles['form-select']}>
+                        <Form.Select
+                            onChange={e => setMyCity(e.target.value)}
+                            className={styles['form-select']}
+                        >
                             <option>Choose a province...</option>
                             {city.map(cityItem => (
                                 <option key={cityItem.id}
-                                    value={cityItem.param ? cityItem.param : cityItem.name}>{cityItem.name}
+                                    value={cityItem.param ? cityItem.param : cityItem.name}
+                                >
+                                    {cityItem.name}
                                 </option>
                             ))}
                         </Form.Select>
@@ -77,16 +92,25 @@ const Location = () => {
                     <p className="mt-4">
                         Or Choose a province in the map:
                     </p>
-                    <MyMap/>
+                    <MyMap setMyCity={setMyCity}/>
                 </div>
             </Modal.Body>
 
             <Modal.Footer>
-                <Button className={`btn ${styles.button} ${styles['grey-btn']}`} onClick={handleClose}>
+                <Button
+                    className={`btn ${styles.button} ${styles['grey-btn']}`}
+                    onClick={handleClose}
+                >
                     Close
                 </Button>
-                <Button className={`btn ${styles.button}`} onClick={handleClose}>
-                    <Link to={`detail?city=${myCity}`} className="text-light text-decoration-none">
+
+                <Button
+                    className={`btn ${styles.button}`}
+                    onClick={handleClose}
+                >
+                    <Link to={`detail?city=${myCity}`}
+                        className="text-light text-decoration-none"
+                    >
                         Go to
                     </Link>
                 </Button>

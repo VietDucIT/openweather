@@ -1,21 +1,33 @@
-.toplist .dropdown-menu.show {
-    position: unset !important;
-    transform: unset !important;
-    float: unset;
+.toplist .accordion-body {
+    padding: 0.5rem 0 1rem 1.25rem;
+}
+
+.toplist .accordion-button {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
     background-color: unset;
+    color: var(--blue-color);
 }
 
-.toplist .dropdown-menu.show .dropdown-item {
-    color: #fff;
-    padding: .25rem 1rem .25rem 2.5rem;
+.toplist .accordion-button::after {
+    content: none;
 }
 
-.toplist .dropdown-menu.show .dropdown-item:hover {
-    color: #16181b;
+.toplist .accordion-button:focus {
+    box-shadow: unset;
+    border-color: unset;
 }
 
-.toplist .nav-item.show .nav-link {
-    color: unset;
-    background-color: unset;
-    font-weight: 600;
+.toplist .accordion-button:not(.collapsed) {
+    border-bottom: 1px solid #fff;
+}
+
+.toplist .list-group-flush>.list-group-item {
+    border-color: white;
+}
+
+.toplist .accordion-button:hover,
+.toplist a:hover {
+    font-weight: bolder;
 }

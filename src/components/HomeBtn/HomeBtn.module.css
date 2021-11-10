@@ -1,0 +1,7 @@
+.home-button {
+    font-size: 24px;
+}
+
+.home-button:hover {
+    transform: scale(0.95);
+}

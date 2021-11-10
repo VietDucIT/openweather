@@ -1,0 +1,13 @@
+#home-btn-tooltip > .tooltip-inner {
+    background-color: #fff;
+    color: var(--blue-color);
+    font-weight: 600;
+}
+
+#home-btn-tooltip > .tooltip-arrow {
+    border: none;
+}
+
+#home-btn-tooltip > .tooltip-arrow::before {
+    border-right: 5px solid #fff;
+}

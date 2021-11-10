@@ -1,6 +1,7 @@
 import {BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 import Header from './components/Header';
+import HomeBtn from './components/HomeBtn';
 import SearchBox from './components/SearchBox';
 import WeatherForecast from './components/WeatherForecast/WeatherForecast';
 import Location from './components/Location/Location';
@@ -12,6 +13,9 @@ const App = () => {
     return (
         <BrowserRouter>
             <Header />
+
+            <HomeBtn />
+
             <Switch>
                 <Route exact path="/">
                     <SearchBox/>

@@ -145,6 +145,8 @@ const WeatherForecast = () => {
         }
     }
 
+    const [forecastDetail, setForecastDetail] = useState(null);
+
     return (
         <Fragment>
         {fullData &&
@@ -237,6 +239,22 @@ const WeatherForecast = () => {
                     </Col>
                 ))}
             </Row>
+
+            { forecastDetail && <Row className="p-3">
+                {forecaseDetail.map((dataItem, index) => (
+                    <Col 
+                        xs={6} sm={4} md={3} lg={2}
+                        className={`${styles['detail-item']} mb-5 text-center`}
+                        key={index}
+                    >
+                        <div className={`${styles['detail-item-title']} font-weight-bold`}>
+                            {dataItem.title}
+                        </div>
+                        {dataItem.icon}
+                        <div>{dataItem.value}</div>
+                    </Col>
+                ))}
+            </Row>}
         </Container>}
 
         <Button className={`${styles.button} position-absolute mt-3`}>

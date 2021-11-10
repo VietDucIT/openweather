@@ -1,0 +1,17 @@
+#location-btn-tooltip > .tooltip-inner {
+    background-color: #fff;
+    color: var(--blue-color);
+    font-weight: 600;
+}
+
+#location-btn-tooltip > .tooltip-arrow {
+    border: none;
+}
+
+#location-btn-tooltip > .tooltip-arrow::before {
+    border-left: 5px solid #fff;
+}
+
+.modal-location option:hover {
+    background-color: var(--blue-color);
+}

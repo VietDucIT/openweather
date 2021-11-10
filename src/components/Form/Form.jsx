@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Form.module.css';
@@ -13,9 +13,9 @@ const Form = () => {
                 type="text"
                 className={`${styles.input} form-control`}
                 placeholder="Search for location"
-                required
                 value={city}
                 onChange={e => setCity(e.target.value)}
+                required
             />
 
             <Link

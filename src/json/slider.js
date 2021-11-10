@@ -19,6 +19,7 @@ const slider = [
     },
     {
         "location": "TP. Hồ Chí Minh",
+        "param": "Thành phố Hồ Chí Minh",
         "image": "saigon.jpg"
     },
     {

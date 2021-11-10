@@ -13,26 +13,6 @@
     min-height: 300px;
 }
 
-.nav-tabs {
-    border-bottom: 0;
-}
-
-.nav-item {
-    border-bottom: 1px solid #fff;
-}
-
-.nav-link {
-    padding: 1rem .5rem .5rem;
-}
-
-.dropdown-toggle::after {
-    content: unset;
-}
-
-.dropdown-divider {
-    margin: .5rem 0 .5rem 2.5rem
-}
-
 .button {
     border: none;
     border-radius: var(--main-border-radius);
@@ -42,7 +22,7 @@
     box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     line-height: initial;
-    width: 100px;
+    width: 125px;
     height: 38px;
     left: 50%;
     transform: translateX(-50%);
