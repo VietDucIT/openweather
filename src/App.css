@@ -18,3 +18,11 @@
     -ms-transform: scale(0.95);
     transform: scale(0.95);
 }
+
+.discover-btn {
+    transform: translateX(-50%);
+}
+
+.discover-btn:hover {
+    transform: scale(0.95) translateX(calc(-50% - 5px));
+}

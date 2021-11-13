@@ -3,7 +3,7 @@ import { Accordion, ListGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 import Loader from '../Loader';
-import Error from '../Error';
+// import Error from '../Error';
 
 import getWeatherByCoord from '../../services/getAPIByCoord';
 import getTopRain from '../../helpers/getTopRain';
@@ -17,14 +17,12 @@ import styles from './TopList.module.css';
 
 const TopList = () => {
     const [isLoading, setLoading] = useState(false);
-    const [hasError, setError] = useState(false);
+    // const [hasError, setError] = useState(false);
 
     const [fullData, setFullData] = useState(null);
     const [topRain, setTopRain] = useState(null);
     const [topSunrise, setTopSunrise] = useState(null);
     const [topTemperature, setTopTemperature] = useState(null);
-
-    // Somecode change here
 
     const getAPI = useCallback (
         async () => {
@@ -40,7 +38,7 @@ const TopList = () => {
                 setFullData(data);
                 setLoading(false);
             } catch (err) {
-                setError(true);
+                // setError(true);
                 console.log("Can't get API by coord");
             }
         }
@@ -65,7 +63,7 @@ const TopList = () => {
                 setTopTemperature(temp);
                 setLoading(false);
             } catch (err) {
-                setError(true);
+                // setError(true);
                 console.log("Error while getting top list");
             }
         }
@@ -77,14 +75,12 @@ const TopList = () => {
 
     const {getTimeFromTimestamp} = getDayTime();
 
-    // console.log(isLoading, "&&&", hasError);
-
     return (
         <Fragment>
         { !topTemperature && (
             <div className={`${styles.box} position-relative`}>
                 {isLoading && <Loader/>}
-                {hasError && <Error message={"Has Error"}/>}
+                {/* {hasError && <Error message={"Has Error"}/>} */}
             </div>
         )}
 
@@ -93,7 +89,10 @@ const TopList = () => {
                 <Accordion className="my-5">
                     <Accordion.Item eventKey="0" className="border-0 border-bottom bg-transparent">
                         <Accordion.Header>
-                            Top 5 provinces with the most rainfall
+                            <span> 
+                                <i className="bi bi-cloud-drizzle"></i> &nbsp;
+                                Top 5 provinces with the most rainfall
+                            </span>
                             <i className="ms-4 bi bi-chevron-down"></i>
                         </Accordion.Header>
 
@@ -119,7 +118,10 @@ const TopList = () => {
 
                     <Accordion.Item eventKey="1" className="border-0 border-bottom bg-transparent">
                         <Accordion.Header>
-                            Top 5 provinces with the earliest sunrise
+                            <span>
+                                <i className="bi bi-sunrise"></i>  &nbsp;
+                                Top 5 provinces with the earliest sunrise
+                            </span>
                             <i className="ms-4 bi bi-chevron-down"></i>
                         </Accordion.Header>
 
@@ -145,7 +147,10 @@ const TopList = () => {
 
                     <Accordion.Item eventKey="2" className="border-0 border-bottom bg-transparent">
                         <Accordion.Header>
-                            Top 5 provinces with the lowest temperature
+                            <span>
+                                <i className="bi bi-thermometer-low"></i> &nbsp;
+                                Top 5 provinces with the lowest temperature
+                            </span>
                             <i className="ms-4 bi bi-chevron-down"></i>
                         </Accordion.Header>
 
@@ -172,59 +177,12 @@ const TopList = () => {
                 
             </div>
 
-            <button className={`${styles.button} position-absolute mt-3`}>
+            {/* <button className={`${styles.button} position-absolute mt-3`}>
                 <Link className='fw-bold text-light text-decoration-none' to="/">Go Home</Link>
-            </button>
+            </button> */}
         </Fragment>}
         </Fragment>
     )
 };
 
 export default TopList;
-
-// Change here
-
-    /* const getAPI = useCallback (
-        async () => {
-            try {
-                setLoading(true);
-                const data = [];
-                for(let i=0; i<city.length; i++){
-                    const lon = city[i].coord.lon;
-                    const lat = city[i].coord.lat;
-                    data[i] = await getWeatherByCoord( lon, lat );
-                }
-                // console.log("From TopList.js: Data", data);
-                setFullData(data);
-                
-                try {
-                    const rain = await getTopRain(fullData);
-                    // console.log("Top rain:", rain);
-                    setTopRain(rain);
-                    const sunrise = await getTopSunrise(fullData);
-                    // console.log("Top sunrise:", sunrise);
-                    setTopSunrise(sunrise);
-                    const temp = await getTopTemperature(fullData);
-                    // console.log("Top temp:", temp);
-                    setTopTemperature(temp);
-                    setLoading(false);
-                } catch (err) {
-                    setError(true);
-                    // console.log("Error while getting top list");
-                }
-
-                setLoading(false);
-            } catch (err) {
-                setError(true);
-                // console.log("Can't get API by coord");
-            }
-        }
-    , [fullData]);
-
-    useEffect(() => {
-        getAPI();
-    }, [getAPI]);
-
-    const {getTimeFromTimestamp} = getDayTime();
-
-    console.log(isLoading, "&&&", hasError);    */

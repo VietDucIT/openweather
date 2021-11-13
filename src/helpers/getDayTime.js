@@ -32,9 +32,25 @@ const getDayTime = () => {
         return time;
     }
 
-    const getTimeFromTimestamp = timestamp => {
+    // const getTimeFromTimestamp = timestamp => {
+    //     const date = new Date(timestamp*1000);
+    //     const hour = date.getHours();
+    //     const minute = date.getMinutes();
+    //     let zeroMinute = '';
+    //     if(minute < 10) zeroMinute = '0';
+    //     const time = `${hour}:${zeroMinute}${minute}`;
+    //     return time;
+    // }
+
+    // const getHourFromTimestamp = timestamp => {
+    //     const date = new Date(timestamp*1000);
+    //     const hour = date.getHours();
+    //     return hour;
+    // }
+
+    const getTimeFromTimestamp = (timestamp, timezoneOffset) => {
         const date = new Date(timestamp*1000);
-        const hour = date.getHours();
+        const hour = date.getHours() - 7 + timezoneOffset/3600;
         const minute = date.getMinutes();
         let zeroMinute = '';
         if(minute < 10) zeroMinute = '0';
@@ -42,9 +58,9 @@ const getDayTime = () => {
         return time;
     }
 
-    const getHourFromTimestamp = timestamp => {
+    const getHourFromTimestamp = (timestamp, timezoneOffset) => {
         const date = new Date(timestamp*1000);
-        const hour = date.getHours();
+        const hour = date.getHours()  - 7 + timezoneOffset/3600;
         return hour;
     }
 

@@ -30,7 +30,7 @@ const App = () => {
 
             <Location/>
 
-            <Link to="/toplist" className="button text-decoration-none text-center d-inline-block mt-4">
+            <Link to="/toplist" className="discover-btn button text-decoration-none text-center position-absolute start-50 mt-4">
                 Discover
             </Link>
         </BrowserRouter>

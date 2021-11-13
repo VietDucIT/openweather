@@ -13,6 +13,10 @@
     min-height: 500px;
 }
 
+.date {
+    opacity: 0.8;
+}
+
 .location {
     font-size: calc(20px + 3vw);
     /* font-size: 50px; */
@@ -58,6 +62,7 @@
 
 .detail-item:hover {
     font-weight: bolder;
+    cursor: pointer;
     /* background-image: linear-gradient(0, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2)) */
 }
 
@@ -80,6 +85,10 @@
 
 .detail-item-title {
     color: var(--blue-color);
+}
+
+.forecast-detail-title {
+    color: var(--orange-color);
 }
 
 .button {

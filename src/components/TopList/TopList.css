@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     padding: 16px;
+    min-width: 478px;
     background-color: unset;
     color: var(--blue-color);
 }
@@ -30,4 +31,10 @@
 .toplist .accordion-button:hover,
 .toplist a:hover {
     font-weight: bolder;
+}
+
+@media (max-width: 575px) {
+    .toplist .accordion-button {
+        min-width: unset;
+    }
 }

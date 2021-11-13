@@ -7,3 +7,20 @@
     font-weight: 600;
     background-color: unset;
 }
+
+.forecast-detail .detail-item {
+    cursor: unset;
+}
+
+.forecast-detail i {
+    font-size: 50px;
+}
+
+.forecast-detail .detail-item:hover i {
+    font-size: 55px;
+}
+
+.forecast-detail .detail-item:hover img {
+    width: 50px !important;
+    margin: 18px !important;
+}
