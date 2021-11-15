@@ -1,11 +1,11 @@
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// , useMapEvents
+
+import city from '../../json/city';
+
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
-import city from '../../json/city';
 
 // set default icon or customize icons
 let defaultIcon = L.icon({
@@ -35,7 +35,7 @@ const MyMap = ( {setMyCity} ) => {
                     key = {cityItem.id}
                     eventHandlers = {{
                         click: () => {
-                            setMyCity(cityItem.name);
+                            setMyCity(cityItem.param ? cityItem.param : cityItem.name);
                         },
                     }}
                 >

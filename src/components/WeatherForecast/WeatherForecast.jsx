@@ -8,12 +8,12 @@ import getDayTime from '../../helpers/getDayTime';
 import setCase from '../../helpers/setCase';
 import getWeatherByName from '../../services/getAPIByName';
 
+import cityList from '../../json/city.js';
+
 import styles from './WeatherForecast.module.css';
 import './WeatherForecast.css';
 
 const WeatherForecast = () => {
-    // console.log("From WeatherForecast: ");
-
     const location = useLocation();
     const { city } = queryString.parse(location.search);
     
@@ -78,9 +78,10 @@ const WeatherForecast = () => {
 
     const [data, setData] = useState(initArrayObject());
 
-    const { getTimeFromTimestamp, getDateString, getWeekDay, getHourFromTimestamp } = getDayTime();
+    const { getDateString, getWeekDay, getDateTimeString, getHourFromTimestamp } = getDayTime();
     const { upperFirstOfWord } = setCase();
-    
+ 
+    // Click to show Detail items of Current weather   
     const onClickDetail = async () => {
         try {
             const {wind_speed, clouds, dew_point, humidity, visibility, uvi} = await fullData.current;
@@ -123,6 +124,7 @@ const WeatherForecast = () => {
         }
     }
 
+    // Click to show Hourly forecast (6 next hours)
     const onClickHourly = async () => {
         try {
             const hour = await fullData.hourly;
@@ -141,6 +143,7 @@ const WeatherForecast = () => {
         }
     }
 
+    // Click to show Daily forecast (6 next days)
     const onClickDaily = async () => {
         try {
             const day = await fullData.daily;
@@ -162,18 +165,18 @@ const WeatherForecast = () => {
     // const [activeItem, setActiveItem] = useState(null);
     const [forecastDetailTitle, setForecastDetailTitle] = useState(null);
 
+    // Click to show detail of Hourly/Daily forecast
     const onClickDetailItem = async (type, index) => {
         try {
             const {dt, wind_speed, clouds, dew_point, humidity, pressure, uvi} = await fullData[type][index];
-            const date = new Date(dt*1000);
+            const date = new Date((dt + fullData.timezone_offset - 7*3600) * 1000);
             var time;
             if(type === "hourly") {
-                time = getTimeFromTimestamp(dt, fullData.timezone_offset) + " " + getDateString(date);
+                time = getDateTimeString(date);
             }
             else {
                 time = getWeekDay(date) + " " + getDateString(date);
             }
-            // console.log(time);
             const detailItems = [
                 {
                     title: "Wind",
@@ -214,21 +217,33 @@ const WeatherForecast = () => {
         }
     }
 
+    // Change city param (if any) to city name
+    const showCity = cityParam => {
+        const cityItem = cityList.find(item => item.param === cityParam);
+        return cityItem ? cityItem.name : cityParam;
+    }
+
     return (
         <Fragment>
         {fullData &&
         <Container className={`weather-forecast ${styles.box}`}>
             {/* Basic Info */}
             <Row className="p-3">
-                <Col xs={12} sm={6} md={8} className="d-flex flex-column">
+                {/* Clock, City name and Weather description */}
+                <Col
+                    xs={12} sm={6} md={8}
+                    className="d-flex flex-column"
+                >
                     <span className={styles.date}>
                         <Clock format={'HH:mm:ss'} ticking={true} timezone={fullData.timezone} />
-                        {fullData.timezone_offset/3600 !== 7 ? ' GMT+' + fullData.timezone_offset/3600 : null}
+                        {fullData.timezone_offset/3600 === 7 ? null :
+                            fullData.timezone_offset > 0 ? ' GMT+' + fullData.timezone_offset/3600 :
+                            ' GMT' + fullData.timezone_offset/3600}
                         <br/>
                         <Clock format={'dddd, MMMM Do, YYYY'} ticking={true} timezone={fullData.timezone} /> 
                     </span>
                     <span className={styles.location}>
-                        {city}
+                        {showCity(city)}
                     </span>
                     <div className={styles['weather-icon-descript']}>
                         <img
@@ -242,7 +257,11 @@ const WeatherForecast = () => {
                     </div>
                 </Col>
 
-                <Col xs={12} sm={6} md={4} className={`${styles['temp-col']} d-flex flex-column align-items-end pe-2`}>
+                {/* Temperature */}
+                <Col
+                    xs={12} sm={6} md={4}
+                    className={`${styles['temp-col']} d-flex flex-column align-items-end pe-2`}
+                >
                     <div className="position-relative mr-5 lh-lg">
                         <span className={styles.temp}>
                             {Math.round(fullData.current.temp - 273.15)}
@@ -291,7 +310,7 @@ const WeatherForecast = () => {
                 </Nav>
             </Row>
 
-            {/* Detail and Forecast */}
+            {/* Detail and Hourly and Daily Forecast */}
             <Row className="p-3">
                 {data.map((dataItem, index) => (
                     <Col 
@@ -309,13 +328,17 @@ const WeatherForecast = () => {
                 ))}
             </Row>
 
+            {/* Forecast Detail Item */}
             { forecastDetail && 
             <Fragment>
+                {/* Title */}
                 <Row>
                     <p className={`${styles['forecast-detail-title']} text-center`}>
                         Detail of Weather Forecast for <b>{forecastDetailTitle}</b>
                     </p>
                 </Row>
+
+                {/* Items */}
                 <Row className="forecast-detail p-3">
                     {forecastDetail.map((dataItem, index) => (
                         <Col 

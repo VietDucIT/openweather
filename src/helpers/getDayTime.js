@@ -1,5 +1,11 @@
 const getDayTime = () => {
 
+    const getDateTimeString = date => {
+        const dateStr = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+        const timeStr = getShortTime(date);
+        return timeStr + ' ' + dateStr;
+    }
+
     const getDateString = date => {
         const dayStr = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
         return dayStr;
@@ -32,6 +38,15 @@ const getDayTime = () => {
         return time;
     }
 
+    const getShortTime = date => {
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        let zeroMinute = '';
+        if(minute < 10) zeroMinute = '0';
+        const shortTime = `${hour}:${zeroMinute}${minute}`;
+        return shortTime;
+    }
+
     // const getTimeFromTimestamp = timestamp => {
     //     const date = new Date(timestamp*1000);
     //     const hour = date.getHours();
@@ -50,7 +65,8 @@ const getDayTime = () => {
 
     const getTimeFromTimestamp = (timestamp, timezoneOffset) => {
         const date = new Date(timestamp*1000);
-        const hour = date.getHours() - 7 + timezoneOffset/3600;
+        const prehour = date.getHours() - 7 + timezoneOffset/3600;
+        const hour = ( prehour > 23 ) ? prehour - 24 : prehour;
         const minute = date.getMinutes();
         let zeroMinute = '';
         if(minute < 10) zeroMinute = '0';
@@ -60,14 +76,17 @@ const getDayTime = () => {
 
     const getHourFromTimestamp = (timestamp, timezoneOffset) => {
         const date = new Date(timestamp*1000);
-        const hour = date.getHours()  - 7 + timezoneOffset/3600;
+        const prehour = date.getHours()  - 7 + timezoneOffset/3600;
+        const hour = ( prehour > 23 ) ? prehour - 24 : prehour;
         return hour;
     }
 
     return {
-        getDateString,
         getWeekDay,
+        getDateString,
+        getDateTimeString,
         getTime,
+        getShortTime,
         getTimeFromTimestamp,
         getHourFromTimestamp
     }

@@ -1,6 +1,12 @@
 .input {
+    border-color: var(--blue-color);
     border-radius: var(--main-border-radius);
     margin-bottom: 1rem;
+}
+
+.input:focus {
+    border-color: var(--blue-color);
+    box-shadow: 0 0 0 0.1rem rgb(2 221 255 / 50%);
 }
 
 /* .button {

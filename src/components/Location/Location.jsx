@@ -35,8 +35,14 @@ const Location = () => {
 
     // localStorage.removeItem(LOCAL_STORAGE_KEY);
 
+    const showMyCity = cityParam => {
+        const cityItem = city.find(item => item.param === cityParam);
+        return cityItem ? cityItem.name : cityParam;
+    }
+
     return (
         <Fragment>
+        {/* Button "Choose location" / city name */}
         <OverlayTrigger
             placement="left"
             overlay={
@@ -47,10 +53,11 @@ const Location = () => {
         >
             <Button className={styles['location-button']} onClick={handleShow}>
                 <i className="bi bi-geo-alt-fill"/>&nbsp;
-                {myCity ? myCity : "Choose your location"}
+                {myCity ? showMyCity(myCity) : "Choose your location"}
             </Button>
         </OverlayTrigger>
 
+        {/* Modal */}
         <Modal
             show={show} onHide={handleClose}
             className="modal-location text-dark"
@@ -73,12 +80,16 @@ const Location = () => {
                     <Form.Group className="mb-3" controlId="province">
                         <Form.Label>Province: </Form.Label>
                         <Form.Select
-                            onChange={e => setMyCity(e.target.value)}
                             className={styles['form-select']}
+                            onChange={e => setMyCity(e.target.value)}
                         >
-                            <option>Choose a province...</option>
+                            <option>
+                                Choose a province...
+                            </option>
+                            
                             {city.map(cityItem => (
-                                <option key={cityItem.id}
+                                <option
+                                    key={cityItem.id}
                                     value={cityItem.param ? cityItem.param : cityItem.name}
                                 >
                                     {cityItem.name}

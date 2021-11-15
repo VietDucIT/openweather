@@ -1,0 +1,39 @@
+.box {
+    margin: 0 auto;
+    border-radius: var(--main-border-radius);
+    -webkit-box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 24px 7px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-color--card);
+    color: var(--main-text-color);
+    width: 85%;
+    max-width: 675px;
+    min-height: 300px;
+}
+
+.error-name {
+    font-family: monospace;
+    color: var(--orange-color);
+    text-shadow: 1px 1px 1px var(--blue-color);
+}
+
+.error-code {
+    font-size: calc(50px + 6vw);
+    line-height: 1;
+}
+
+.error-description {
+    font-size: calc(30px + 2vw);
+}
+
+.error-detail {
+    font-size: 16px;
+}
+
+.error-back {
+    color: var(--blue-color);
+    font-size: 20px;
+}
+
+.error-back:hover {
+    color: var(--orange-color);
+}
