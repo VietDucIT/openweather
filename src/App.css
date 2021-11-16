@@ -19,6 +19,12 @@
     transform: scale(0.95);
 }
 
+.button.disable {
+    opacity: 0.8;
+    cursor: unset;
+    user-select: none;
+}
+
 .discover-btn {
     transform: translateX(-50%);
 }

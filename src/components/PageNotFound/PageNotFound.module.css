@@ -1,3 +1,13 @@
+.page-not-found {
+    animation: appear 2s;
+}
+  
+@keyframes appear {
+    0% { opacity: 0; }
+    30% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 .box {
     margin: 0 auto;
     border-radius: var(--main-border-radius);

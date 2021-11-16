@@ -18,12 +18,23 @@ const Form = () => {
                 required
             />
 
-            <Link
+            {city ? 
+                <Link
+                    to={`detail?city=${city}`}
+                    className="button text-decoration-none text-light"
+                >
+                    SEARCH
+                </Link>
+                :
+                <div className="button disable">SEARCH</div>
+            }
+            
+            {/* <Link
                 to={`detail?city=${city}`}
                 className="button text-decoration-none"
             >
                 SEARCH
-            </Link>
+            </Link> */}
         </form>
     );
 };

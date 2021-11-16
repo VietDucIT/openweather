@@ -12,12 +12,13 @@ import cityList from '../../json/city.js';
 
 import styles from './WeatherForecast.module.css';
 import './WeatherForecast.css';
+import PageNotFound from "../PageNotFound";
 
 const WeatherForecast = () => {
     const location = useLocation();
     const { city } = queryString.parse(location.search);
     
-    const [fullData, setFullData] = useState(null)
+    const [fullData, setFullData] = useState(null);
 
     // Get full data
     const getAPI = useCallback (
@@ -225,126 +226,103 @@ const WeatherForecast = () => {
 
     return (
         <Fragment>
-        {fullData &&
-        <Container className={`weather-forecast ${styles.box}`}>
-            {/* Basic Info */}
-            <Row className="p-3">
-                {/* Clock, City name and Weather description */}
-                <Col
-                    xs={12} sm={6} md={8}
-                    className="d-flex flex-column"
-                >
-                    <span className={styles.date}>
-                        <Clock format={'HH:mm:ss'} ticking={true} timezone={fullData.timezone} />
-                        {fullData.timezone_offset/3600 === 7 ? null :
-                            fullData.timezone_offset > 0 ? ' GMT+' + fullData.timezone_offset/3600 :
-                            ' GMT' + fullData.timezone_offset/3600}
-                        <br/>
-                        <Clock format={'dddd, MMMM Do, YYYY'} ticking={true} timezone={fullData.timezone} /> 
-                    </span>
-                    <span className={styles.location}>
-                        {showCity(city)}
-                    </span>
-                    <div className={styles['weather-icon-descript']}>
-                        <img
-                            src={`http://openweathermap.org/img/wn/${fullData.current.weather[0].icon}@2x.png`}
-                            alt='weather icon'
-                            width="100px"
-                        />
-                        <div className={styles.description}>
-                            { upperFirstOfWord(fullData.current.weather[0].description) }
-                        </div>
-                    </div>
-                </Col>
+        {/* {fullData && */}
+        {!fullData ?
+            <PageNotFound />
+            : 
+            <Container className={`weather-forecast ${styles.box}`}>
 
-                {/* Temperature */}
-                <Col
-                    xs={12} sm={6} md={4}
-                    className={`${styles['temp-col']} d-flex flex-column align-items-end pe-2`}
-                >
-                    <div className="position-relative mr-5 lh-lg">
-                        <span className={styles.temp}>
-                            {Math.round(fullData.current.temp - 273.15)}
-                        </span>
-                        <span className={`${styles.celsius} position-absolute top-0`}>°C</span>
-                    </div>
-                    <span className={styles['min-max-temp']}>
-                        {Math.round(fullData.daily[0].temp.min - 273.15)}°C /&nbsp;
-                        {Math.round(fullData.daily[0].temp.max - 273.15)}°C
-                    </span>
-                </Col>
-            </Row>
-
-            {/* Nav */}
-            <Row className="mt-4">
-                <Nav fill variant="tabs">
-                    <Nav.Item>
-                        <Nav.Link
-                            eventKey="1" 
-                            className={styles['nav-link']}
-                            onClick={onClickDetail}
-                        >
-                            Detail
-                        </Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                        <Nav.Link
-                            eventKey="2" 
-                            className={styles['nav-link']}
-                            onClick={onClickHourly}
-                        >
-                            Hourly
-                        </Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                        <Nav.Link
-                            eventKey="3" 
-                            className={styles['nav-link']}
-                            onClick={onClickDaily}
-                        >
-                            Daily
-                        </Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </Row>
-
-            {/* Detail and Hourly and Daily Forecast */}
-            <Row className="p-3">
-                {data.map((dataItem, index) => (
-                    <Col 
-                        xs={6} sm={4} md={3} lg={2}
-                        className={`${styles['detail-item']} detail-item mb-5 text-center`}
-                        key={index}
-                        onClick={() => onClickDetailItem(dataItem.type, index+1)}
+                {/* Basic Info */}
+                <Row className="p-3">
+                    {/* Clock, City name and Weather description */}
+                    <Col
+                        xs={12} sm={6} md={8}
+                        className="d-flex flex-column"
                     >
-                        <div className={`${styles['detail-item-title']} font-weight-bold`}>
-                            {dataItem.title}
+                        <span className={styles.date}>
+                            <Clock format={'HH:mm:ss'} ticking={true} timezone={fullData.timezone} />
+                            {fullData.timezone_offset/3600 === 7 ? null :
+                                fullData.timezone_offset > 0 ? ' GMT+' + fullData.timezone_offset/3600 :
+                                ' GMT' + fullData.timezone_offset/3600}
+                            <br/>
+                            <Clock format={'dddd, MMMM Do, YYYY'} ticking={true} timezone={fullData.timezone} /> 
+                        </span>
+                        <span className={styles.location}>
+                            {showCity(city)}
+                        </span>
+                        <div className={styles['weather-icon-descript']}>
+                            <img
+                                src={`http://openweathermap.org/img/wn/${fullData.current.weather[0].icon}@2x.png`}
+                                alt='weather icon'
+                                width="100px"
+                            />
+                            <div className={styles.description}>
+                                { upperFirstOfWord(fullData.current.weather[0].description) }
+                            </div>
                         </div>
-                        {dataItem.icon}
-                        <div>{dataItem.value}</div>
                     </Col>
-                ))}
-            </Row>
 
-            {/* Forecast Detail Item */}
-            { forecastDetail && 
-            <Fragment>
-                {/* Title */}
-                <Row>
-                    <p className={`${styles['forecast-detail-title']} text-center`}>
-                        Detail of Weather Forecast for <b>{forecastDetailTitle}</b>
-                    </p>
+                    {/* Temperature */}
+                    <Col
+                        xs={12} sm={6} md={4}
+                        className={`${styles['temp-col']} d-flex flex-column align-items-end pe-2`}
+                    >
+                        <div className="position-relative mr-5 lh-lg">
+                            <span className={styles.temp}>
+                                {Math.round(fullData.current.temp - 273.15)}
+                            </span>
+                            <span className={`${styles.celsius} position-absolute top-0`}>°C</span>
+                        </div>
+                        <span className={styles['min-max-temp']}>
+                            {Math.round(fullData.daily[0].temp.min - 273.15)}°C /&nbsp;
+                            {Math.round(fullData.daily[0].temp.max - 273.15)}°C
+                        </span>
+                    </Col>
                 </Row>
 
-                {/* Items */}
-                <Row className="forecast-detail p-3">
-                    {forecastDetail.map((dataItem, index) => (
+                {/* Nav */}
+                <Row className="mt-4">
+                    <Nav fill variant="tabs">
+                        <Nav.Item>
+                            <Nav.Link
+                                eventKey="1" 
+                                className={styles['nav-link']}
+                                onClick={onClickDetail}
+                            >
+                                Detail
+                            </Nav.Link>
+                        </Nav.Item>
+
+                        <Nav.Item>
+                            <Nav.Link
+                                eventKey="2" 
+                                className={styles['nav-link']}
+                                onClick={onClickHourly}
+                            >
+                                Hourly
+                            </Nav.Link>
+                        </Nav.Item>
+
+                        <Nav.Item>
+                            <Nav.Link
+                                eventKey="3" 
+                                className={styles['nav-link']}
+                                onClick={onClickDaily}
+                            >
+                                Daily
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Row>
+
+                {/* Detail and Hourly and Daily Forecast */}
+                <Row className="p-3">
+                    {data.map((dataItem, index) => (
                         <Col 
                             xs={6} sm={4} md={3} lg={2}
                             className={`${styles['detail-item']} detail-item mb-5 text-center`}
                             key={index}
+                            onClick={() => onClickDetailItem(dataItem.type, index+1)}
                         >
                             <div className={`${styles['detail-item-title']} font-weight-bold`}>
                                 {dataItem.title}
@@ -354,8 +332,36 @@ const WeatherForecast = () => {
                         </Col>
                     ))}
                 </Row>
-            </Fragment>}
-        </Container>}
+
+                {/* Forecast Detail Item */}
+                { forecastDetail && 
+                <Fragment>
+                    {/* Title */}
+                    <Row>
+                        <p className={`${styles['forecast-detail-title']} text-center`}>
+                            Detail of Weather Forecast for <b>{forecastDetailTitle}</b>
+                        </p>
+                    </Row>
+
+                    {/* Items */}
+                    <Row className="forecast-detail p-3">
+                        {forecastDetail.map((dataItem, index) => (
+                            <Col 
+                                xs={6} sm={4} md={3} lg={2}
+                                className={`${styles['detail-item']} detail-item mb-5 text-center`}
+                                key={index}
+                            >
+                                <div className={`${styles['detail-item-title']} font-weight-bold`}>
+                                    {dataItem.title}
+                                </div>
+                                {dataItem.icon}
+                                <div>{dataItem.value}</div>
+                            </Col>
+                        ))}
+                    </Row>
+                </Fragment>}
+
+            </Container>}
         </Fragment>
     );
 }
