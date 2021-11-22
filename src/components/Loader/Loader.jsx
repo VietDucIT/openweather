@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './Loader.module.css';
 
 const Loader = () => (
@@ -25,6 +23,7 @@ const Loader = () => (
                     repeatCount="indefinite"
                 />
             </rect>
+
             <rect x="10" y="0" width="3" height="10" fill="#333">
                 <animateTransform
                     attributeType="xml"
@@ -36,6 +35,7 @@ const Loader = () => (
                     repeatCount="indefinite"
                 />
             </rect>
+            
             <rect x="20" y="0" width="3" height="10" fill="#333">
                 <animateTransform
                     attributeType="xml"

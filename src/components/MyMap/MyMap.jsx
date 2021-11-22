@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
@@ -43,9 +44,13 @@ const MyMap = ( {setMyCity} ) => {
                         {cityItem.name}
                     </Popup>
                 </Marker>
-            ))}
+            )) }
         </MapContainer>
     )
 }
+
+MyMap.propTypes = {
+    setMyCity: PropTypes.func,
+};
 
 export default MyMap;

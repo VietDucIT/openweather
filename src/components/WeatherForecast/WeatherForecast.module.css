@@ -16,7 +16,6 @@
 
 .location {
     font-size: calc(20px + 3vw);
-    /* font-size: 50px; */
     font-weight: 600;
     color: var(--blue-color);
 }
@@ -32,7 +31,6 @@
 
 .temp {
     font-size: calc(60px + 6vw);
-    /* font-size: 112px; */
     font-weight: 500;
 }
 
@@ -52,7 +50,6 @@
 .detail-item:hover {
     font-weight: bolder;
     cursor: pointer;
-    /* background-image: linear-gradient(0, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2)) */
 }
 
 .detail-item i {

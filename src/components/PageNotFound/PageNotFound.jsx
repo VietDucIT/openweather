@@ -7,7 +7,7 @@ const PageNotFound = () => {
         <div className={`${styles['page-not-found']} ${styles.box} text-center py-5`}>
             <div className={`${styles['error-name']} fw-bold`}>
                 <p className={`${styles['error-code']} mb-0`}>
-                    4<i className="bi bi-emoji-frown"></i>4
+                    4<i className="bi bi-emoji-frown" />4
                 </p>
                 <p className={styles['error-description']}>
                     Page Not Found

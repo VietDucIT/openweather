@@ -28,13 +28,6 @@ const Form = () => {
                 :
                 <div className="button disable">SEARCH</div>
             }
-            
-            {/* <Link
-                to={`detail?city=${city}`}
-                className="button text-decoration-none"
-            >
-                SEARCH
-            </Link> */}
         </form>
     );
 };

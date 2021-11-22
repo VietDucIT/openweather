@@ -9,7 +9,6 @@ import slider from "../../json/slider";
 import styles from './SearchBox.module.css';
 
 const SearchBox = () => {
-
     return (
         <Fragment>
             <div className={styles.box}>

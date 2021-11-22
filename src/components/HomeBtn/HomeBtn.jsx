@@ -14,8 +14,10 @@ const HomeBtn = () => {
                 </Tooltip>
             }
         >
-            <Link to="/" className={`${styles['home-button']} pt-1 ps-2 position-absolute top-0 start-0`}>
-                <i className="bi bi-house-door-fill text-light"></i>
+            <Link to="/"
+                className={`${styles['home-button']} pt-1 ps-2 position-absolute top-0 start-0`}
+            >
+                <i className="bi bi-house-door-fill text-light" />
             </Link>
         </OverlayTrigger>
     )

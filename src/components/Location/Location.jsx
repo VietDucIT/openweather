@@ -31,7 +31,7 @@ const Location = () => {
         if(myCity) {
             localStorage.setItem(LOCAL_STORAGE_KEY, myCity);
         }
-    }, [myCity]);
+    }, [ myCity ]);
 
     // localStorage.removeItem(LOCAL_STORAGE_KEY);
 
@@ -42,7 +42,7 @@ const Location = () => {
 
     return (
         <Fragment>
-        {/* Button "Choose location" / city name */}
+        {/* Button "Choose location" || city name */}
         <OverlayTrigger
             placement="left"
             overlay={
@@ -51,8 +51,11 @@ const Location = () => {
                 </Tooltip>
             }
         >
-            <Button className={styles['location-button']} onClick={handleShow}>
-                <i className="bi bi-geo-alt-fill"/>&nbsp;
+            <Button
+                className={styles['location-button']}
+                onClick={handleShow}
+            >
+                <i className="bi bi-geo-alt-fill"/> &nbsp;
                 {myCity ? showMyCity(myCity) : "Choose your location"}
             </Button>
         </OverlayTrigger>
@@ -69,6 +72,7 @@ const Location = () => {
             </Modal.Header>
 
             <Modal.Body>
+                {/* Form */}
                 <Form>
                     <Form.Group className="mb-3" controlId="country">
                         <Form.Label>Country: </Form.Label>
@@ -78,7 +82,7 @@ const Location = () => {
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="province">
-                        <Form.Label>Province: </Form.Label>
+                        <Form.Label>Province:</Form.Label>
                         <Form.Select
                             className={styles['form-select']}
                             onChange={e => setMyCity(e.target.value)}
@@ -87,18 +91,19 @@ const Location = () => {
                                 Choose a province...
                             </option>
                             
-                            {city.map(cityItem => (
+                            { city.map(cityItem => (
                                 <option
                                     key={cityItem.id}
                                     value={cityItem.param ? cityItem.param : cityItem.name}
                                 >
                                     {cityItem.name}
                                 </option>
-                            ))}
+                            )) }
                         </Form.Select>
                     </Form.Group>
                 </Form>
                 
+                {/* Map */}
                 <div>
                     <p className="mt-4">
                         Or Choose a province in the map:

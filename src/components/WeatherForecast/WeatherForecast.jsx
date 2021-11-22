@@ -4,6 +4,8 @@ import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import Clock from 'react-live-clock';
 
+import PageNotFound from "../PageNotFound";
+
 import getDayTime from '../../helpers/getDayTime';
 import setCase from '../../helpers/setCase';
 import getWeatherByName from '../../services/getAPIByName';
@@ -12,7 +14,6 @@ import cityList from '../../json/city.js';
 
 import styles from './WeatherForecast.module.css';
 import './WeatherForecast.css';
-import PageNotFound from "../PageNotFound";
 
 const WeatherForecast = () => {
     const location = useLocation();
@@ -89,37 +90,37 @@ const WeatherForecast = () => {
             const weatherDetailItems = [
                 {
                     title: "Wind",
-                    icon: <i className="bi bi-wind"></i>,
+                    icon: <i className="bi bi-wind" />,
                     value: wind_speed + "m/s"
                 },
                 {
                     title: "Cloud",
-                    icon: <i className="bi bi-clouds"></i>,
+                    icon: <i className="bi bi-clouds" />,
                     value: clouds + "%"
                 },
                 {
                     title: "Dew Point",
-                    icon: <i className="bi bi-cloud-lightning-rain"></i>,
+                    icon: <i className="bi bi-cloud-lightning-rain" />,
                     value: Math.round(dew_point - 273.15) + "°C"
                 },
                 {
                     title: "Humidity",
-                    icon: <i className="bi bi-droplet-half"></i>,
+                    icon: <i className="bi bi-droplet-half" />,
                     value: humidity + "%"
                 },
                 {
                     title: "Visibility",
-                    icon: <i className="bi bi-eyeglasses"></i>,
+                    icon: <i className="bi bi-eyeglasses" />,
                     value: Math.round(visibility/1000) + "km"
                 },
                 {
                     title: "UV Index",
-                    icon: <i className="bi bi-brightness-low"></i>,
+                    icon: <i className="bi bi-brightness-low" />,
                     value: uvi
                 }
             ];
             setData(weatherDetailItems);
-            setForecastDetail(null);        // Ẩn phần dự báo cho hourly và daily
+            setForecastDetail(null);        // hide hourly và daily forecast
         } catch (e) {
             console.log("Fail to read weather detail");
         }
@@ -132,7 +133,6 @@ const WeatherForecast = () => {
             let hourlyForecastItems = initArrayObject();
             for(let i=0; i<6; i++) {
                 hourlyForecastItems[i].type = "hourly";
-                // <Clock format={'HH:mm'} ticking={true} timezone={fullData.timezone} />
                 hourlyForecastItems[i].title = getHourFromTimestamp(hour[i+1].dt, fullData.timezone_offset) + ":00";
                 hourlyForecastItems[i].icon = <img src={`http://openweathermap.org/img/wn/${hour[i+1].weather[0].icon}@2x.png`} alt="weather icon" />;
                 hourlyForecastItems[i].value = Math.round(hour[i+1].temp - 273.15) + "°C";
@@ -163,13 +163,12 @@ const WeatherForecast = () => {
     }
 
     const [forecastDetail, setForecastDetail] = useState(null);
-    // const [activeItem, setActiveItem] = useState(null);
     const [forecastDetailTitle, setForecastDetailTitle] = useState(null);
 
     // Click to show detail of Hourly/Daily forecast
     const onClickDetailItem = async (type, index) => {
         try {
-            const {dt, wind_speed, clouds, dew_point, humidity, pressure, uvi} = await fullData[type][index];
+            const { dt, wind_speed, clouds, dew_point, humidity, pressure, uvi } = await fullData[type][index];
             const date = new Date((dt + fullData.timezone_offset - 7*3600) * 1000);
             var time;
             if(type === "hourly") {
@@ -181,22 +180,22 @@ const WeatherForecast = () => {
             const detailItems = [
                 {
                     title: "Wind",
-                    icon: <i className="bi bi-wind"></i>,
+                    icon: <i className="bi bi-wind" />,
                     value: wind_speed + "m/s"
                 },
                 {
                     title: "Cloud",
-                    icon: <i className="bi bi-clouds"></i>,
+                    icon: <i className="bi bi-clouds" />,
                     value: clouds + "%"
                 },
                 {
                     title: "Dew Point",
-                    icon: <i className="bi bi-cloud-lightning-rain"></i>,
+                    icon: <i className="bi bi-cloud-lightning-rain" />,
                     value: Math.round(dew_point - 273.15) + "°C"
                 },
                 {
                     title: "Humidity",
-                    icon: <i className="bi bi-droplet-half"></i>,
+                    icon: <i className="bi bi-droplet-half" />,
                     value: humidity + "%"
                 },
                 {
@@ -206,13 +205,12 @@ const WeatherForecast = () => {
                 },
                 {
                     title: "UV Index",
-                    icon: <i className="bi bi-brightness-low"></i>,
+                    icon: <i className="bi bi-brightness-low" />,
                     value: uvi
                 }
             ];
             setForecastDetail(detailItems);
             setForecastDetailTitle(time);
-            // setActiveItem("active");
         } catch (e) {
             console.log("Fail to read forecast detail");
         }
@@ -226,7 +224,6 @@ const WeatherForecast = () => {
 
     return (
         <Fragment>
-        {/* {fullData && */}
         {!fullData ?
             <PageNotFound />
             : 
@@ -240,16 +237,24 @@ const WeatherForecast = () => {
                         className="d-flex flex-column"
                     >
                         <span className={styles.date}>
-                            <Clock format={'HH:mm:ss'} ticking={true} timezone={fullData.timezone} />
+                            <Clock
+                                format={'HH:mm:ss'} ticking={true}
+                                timezone={fullData.timezone}
+                            />
                             {fullData.timezone_offset/3600 === 7 ? null :
                                 fullData.timezone_offset > 0 ? ' GMT+' + fullData.timezone_offset/3600 :
                                 ' GMT' + fullData.timezone_offset/3600}
                             <br/>
-                            <Clock format={'dddd, MMMM Do, YYYY'} ticking={true} timezone={fullData.timezone} /> 
+                            <Clock
+                                format={'dddd, MMMM Do, YYYY'} ticking={true}
+                                timezone={fullData.timezone}
+                            /> 
                         </span>
+
                         <span className={styles.location}>
                             {showCity(city)}
                         </span>
+                        
                         <div className={styles['weather-icon-descript']}>
                             <img
                                 src={`http://openweathermap.org/img/wn/${fullData.current.weather[0].icon}@2x.png`}
@@ -345,7 +350,7 @@ const WeatherForecast = () => {
 
                     {/* Items */}
                     <Row className="forecast-detail p-3">
-                        {forecastDetail.map((dataItem, index) => (
+                        { forecastDetail.map((dataItem, index) => (
                             <Col 
                                 xs={6} sm={4} md={3} lg={2}
                                 className={`${styles['detail-item']} detail-item mb-5 text-center`}
@@ -357,7 +362,7 @@ const WeatherForecast = () => {
                                 {dataItem.icon}
                                 <div>{dataItem.value}</div>
                             </Col>
-                        ))}
+                        )) }
                     </Row>
                 </Fragment>}
 

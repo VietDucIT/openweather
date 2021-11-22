@@ -3,7 +3,6 @@ import { Accordion, ListGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 import Loader from '../Loader';
-// import Error from '../Error';
 
 import getWeatherByCoord from '../../services/getAPIByCoord';
 import getTopRain from '../../helpers/getTopRain';
@@ -19,7 +18,6 @@ import styles from './TopList.module.css';
 
 const TopList = () => {
     const [isLoading, setLoading] = useState(false);
-    // const [hasError, setError] = useState(false);
 
     const [fullData, setFullData] = useState(null);
     const [topRain, setTopRain] = useState(null);
@@ -41,7 +39,6 @@ const TopList = () => {
                 setFullData(data);
                 setLoading(false);
             } catch (err) {
-                // setError(true);
                 console.log("Can't get API by coord");
             }
         }
@@ -74,8 +71,6 @@ const TopList = () => {
 
                 setLoading(false);
             } catch (err) {
-                // setError(true);
-                // console.log("Error while getting top list");
                 console.log("Error while getting top list", err);
             }
         }
@@ -83,16 +78,15 @@ const TopList = () => {
 
     useEffect(() => {
         getTopList();
-    }, [getTopList]);
+    }, [ getTopList ]);
 
-    const {getTimeFromTimestamp} = getDayTime();
+    const { getTimeFromTimestamp } = getDayTime();
 
     return (
         <Fragment>
         { !topTemperature && (
             <div className={`${styles.box} position-relative`}>
                 {isLoading && <Loader/>}
-                {/* {hasError && <Error message={"Has Error"}/>} */}
             </div>
         )}
 
@@ -100,13 +94,16 @@ const TopList = () => {
             <div className={`${styles.box} toplist`}>
                 <Accordion>
                     {/* Top rainfall */}
-                    <Accordion.Item eventKey="0" className="border-0 border-bottom bg-transparent">
+                    <Accordion.Item
+                        eventKey="0"
+                        className="border-0 border-bottom bg-transparent"
+                    >
                         <Accordion.Header>
                             <span> 
-                                <i className="bi bi-cloud-drizzle"></i> &nbsp;
+                                <i className="bi bi-cloud-drizzle" /> &nbsp;
                                 Top 5 provinces with the most rainfall
                             </span>
-                            <i className="ms-4 bi bi-chevron-down"></i>
+                            <i className="ms-4 bi bi-chevron-down" />
                         </Accordion.Header>
 
                         <Accordion.Body>
@@ -130,13 +127,16 @@ const TopList = () => {
                     </Accordion.Item>
 
                     {/* Top sunrise */}
-                    <Accordion.Item eventKey="1" className="border-0 border-bottom bg-transparent">
+                    <Accordion.Item
+                        eventKey="1"
+                        className="border-0 border-bottom bg-transparent"
+                    >
                         <Accordion.Header>
                             <span>
-                                <i className="bi bi-sunrise"></i>  &nbsp;
+                                <i className="bi bi-sunrise" />  &nbsp;
                                 Top 5 provinces with the earliest sunrise
                             </span>
-                            <i className="ms-4 bi bi-chevron-down"></i>
+                            <i className="ms-4 bi bi-chevron-down" />
                         </Accordion.Header>
 
                         <Accordion.Body>
@@ -155,19 +155,22 @@ const TopList = () => {
                                             {/* Due to just get list of Vietnamese cities, set timezome_offset = 25200 */}
                                         </Link>
                                     </ListGroup.Item>
-                                ))}
+                                )) }
                             </ListGroup>
                         </Accordion.Body>
                     </Accordion.Item>
 
                     {/* Top temperature */}
-                    <Accordion.Item eventKey="2" className="border-0 border-bottom bg-transparent">
+                    <Accordion.Item
+                        eventKey="2"
+                        className="border-0 border-bottom bg-transparent"
+                    >
                         <Accordion.Header>
                             <span>
-                                <i className="bi bi-thermometer-low"></i> &nbsp;
+                                <i className="bi bi-thermometer-low" /> &nbsp;
                                 Top 5 provinces with the lowest temperature
                             </span>
-                            <i className="ms-4 bi bi-chevron-down"></i>
+                            <i className="ms-4 bi bi-chevron-down" />
                         </Accordion.Header>
 
                         <Accordion.Body>
@@ -191,13 +194,16 @@ const TopList = () => {
                     </Accordion.Item>
 
                     {/* Top wind */}
-                    <Accordion.Item eventKey="3" className="border-0 border-bottom bg-transparent">
+                    <Accordion.Item
+                        eventKey="3"
+                        className="border-0 border-bottom bg-transparent"
+                    >
                         <Accordion.Header>
                             <span>
-                                <i className="bi bi-wind"></i> &nbsp;
+                                <i className="bi bi-wind" /> &nbsp;
                                 Top 5 provinces with the fastest wind speed
                             </span>
-                            <i className="ms-4 bi bi-chevron-down"></i>
+                            <i className="ms-4 bi bi-chevron-down" />
                         </Accordion.Header>
 
                         <Accordion.Body>
@@ -220,7 +226,6 @@ const TopList = () => {
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-                
             </div>
         </Fragment>}
         </Fragment>
