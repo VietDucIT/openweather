@@ -4,7 +4,7 @@
   
 @keyframes appear {
     0% { opacity: 0; }
-    40% { opacity: 0; }
+    30% { opacity: 0; }
     100% { opacity: 1; }
 }
 
@@ -17,7 +17,7 @@
     color: var(--main-text-color);
     width: 85%;
     max-width: 675px;
-    min-height: 300px;
+    height: 300px;
 }
 
 .error-name {

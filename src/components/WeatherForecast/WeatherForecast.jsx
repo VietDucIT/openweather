@@ -4,6 +4,7 @@ import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import Clock from 'react-live-clock';
 
+import Loader from '../Loader';
 import PageNotFound from "../PageNotFound";
 
 import getDayTime from '../../helpers/getDayTime';
@@ -19,15 +20,19 @@ const WeatherForecast = () => {
     const location = useLocation();
     const { city } = queryString.parse(location.search);
     
+    const [isLoading, setLoading] = useState(false);
+
     const [fullData, setFullData] = useState(null);
 
     // Get full data
     const getAPI = useCallback (
         async () => {
             try {
+                setLoading(true);
                 const data = await getWeatherByName(city);
                 console.log("From WeatherForecast: Data", data);
                 setFullData(data);
+                setLoading(false);
             } catch (err) {
                 console.log("Can not call API");
             }
@@ -86,6 +91,7 @@ const WeatherForecast = () => {
     // Click to show Detail items of Current weather   
     const onClickDetail = async () => {
         try {
+            setLoading(true);
             const {wind_speed, clouds, dew_point, humidity, visibility, uvi} = await fullData.current;
             const weatherDetailItems = [
                 {
@@ -121,6 +127,7 @@ const WeatherForecast = () => {
             ];
             setData(weatherDetailItems);
             setForecastDetail(null);        // hide hourly và daily forecast
+            setLoading(false);
         } catch (e) {
             console.log("Fail to read weather detail");
         }
@@ -129,6 +136,7 @@ const WeatherForecast = () => {
     // Click to show Hourly forecast (6 next hours)
     const onClickHourly = async () => {
         try {
+            setLoading(true);
             const hour = await fullData.hourly;
             let hourlyForecastItems = initArrayObject();
             for(let i=0; i<6; i++) {
@@ -139,6 +147,7 @@ const WeatherForecast = () => {
             }
             setData(hourlyForecastItems);
             setForecastDetail(null);
+            setLoading(false);
         } catch (e) {
             console.log("Fail to read weather forecast hourly");
         }
@@ -147,6 +156,7 @@ const WeatherForecast = () => {
     // Click to show Daily forecast (6 next days)
     const onClickDaily = async () => {
         try {
+            setLoading(true);
             const day = await fullData.daily;
             let dailyForecastItems = initArrayObject();
             for(let i=0; i<6; i++) {
@@ -157,6 +167,7 @@ const WeatherForecast = () => {
             }
             setData(dailyForecastItems);
             setForecastDetail(null);
+            setLoading(false);
         } catch (e) {
             console.log("Fail to read weather forecast daily");
         }
@@ -168,6 +179,7 @@ const WeatherForecast = () => {
     // Click to show detail of Hourly/Daily forecast
     const onClickDetailItem = async (type, index) => {
         try {
+            setLoading(true);
             const { dt, wind_speed, clouds, dew_point, humidity, pressure, uvi } = await fullData[type][index];
             const date = new Date((dt + fullData.timezone_offset - 7*3600) * 1000);
             var time;
@@ -211,6 +223,7 @@ const WeatherForecast = () => {
             ];
             setForecastDetail(detailItems);
             setForecastDetailTitle(time);
+            setLoading(false);
         } catch (e) {
             console.log("Fail to read forecast detail");
         }
@@ -222,11 +235,17 @@ const WeatherForecast = () => {
         return cityItem ? cityItem.name : cityParam;
     }
 
+    setTimeout(() => setLoading(false), 5000);
+
     return (
         <Fragment>
-        {!fullData ?
-            <PageNotFound />
-            : 
+        { !fullData && (
+            <div className="position-relative">
+                {isLoading ? <Loader/> : <PageNotFound />}
+            </div>
+        ) }
+        
+        { fullData &&
             <Container className={`weather-forecast ${styles.box}`}>
 
                 {/* Basic Info */}
@@ -242,7 +261,7 @@ const WeatherForecast = () => {
                                 timezone={fullData.timezone}
                             />
                             {fullData.timezone_offset/3600 === 7 ? null :
-                                fullData.timezone_offset > 0 ? ' GMT+' + fullData.timezone_offset/3600 :
+                                fullData.timezone_offset >= 0 ? ' GMT+' + fullData.timezone_offset/3600 :
                                 ' GMT' + fullData.timezone_offset/3600}
                             <br/>
                             <Clock
@@ -366,7 +385,8 @@ const WeatherForecast = () => {
                     </Row>
                 </Fragment>}
 
-            </Container>}
+            </Container>
+        }
         </Fragment>
     );
 }

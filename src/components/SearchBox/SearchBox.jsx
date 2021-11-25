@@ -21,7 +21,7 @@ const SearchBox = () => {
 
                     {/* Carousel */}
                     <Col xs={12} md={6} className="my-md-0 my-3">
-                        <Carousel controls={false} indicators={false}>
+                        <Carousel controls={false} indicators={false} interval={3000} fade>
                             { slider.map((slideItem, index) => (
                                 <Carousel.Item key={index}>
                                     <Link

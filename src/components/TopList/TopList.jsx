@@ -71,7 +71,7 @@ const TopList = () => {
 
                 setLoading(false);
             } catch (err) {
-                console.log("Error while getting top list", err);
+                console.log("Error while getting top list");
             }
         }
     , [fullData]);
@@ -85,7 +85,7 @@ const TopList = () => {
     return (
         <Fragment>
         { !topTemperature && (
-            <div className={`${styles.box} position-relative`}>
+            <div className="position-relative">
                 {isLoading && <Loader/>}
             </div>
         )}
